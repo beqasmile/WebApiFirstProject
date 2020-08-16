@@ -53,7 +53,7 @@ namespace ProductsApp.Controllers
             var product = ProductsModel.GetProducts().Products.FirstOrDefault((p) => p.Id == id);
             if (product == null)
             {
-                throw new Exception("Product doesnot exists");
+               // throw new Exception("Product doesnot exists");
             }
             return Ok(product);
         }

@@ -51,7 +51,7 @@
 
         function find() {
             var id = $('#prodId').val();
-            $.getJSON(uri + '/' + id)
+            $.getJSON(uri + '/GetProductById/' + id)
                 .done(function (data) {
                     $('#product').text(formatItem(data));
                 })
@@ -69,9 +69,10 @@
              x.Category = $('#Category').val();
              x.Price = $('#Price').val();
 
-            $.post(uri + "/" + "AddProduct", function (data) { })
+            $.post(uri + "/" + "AddProduct",x, function (data) { })
                 .done(function () {
-                    alert("second success");
+                    alert("product was added succesfullly");
+                    location.reload();
                 })
                 .fail(function (error) {
                     console.log(error);
