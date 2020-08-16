@@ -59,6 +59,37 @@ namespace ProductsApp.Controllers
         }
 
 
+        [HttpPost]
+        [ActionName("UpdateProduct")]
+        public IHttpActionResult UpdateProduct(Product product)
+        {
+            var productInList = ProductsModel.GetProducts().Products.FirstOrDefault((p) => p.Id == product.Id);
+            if (productInList == null)
+            {
+                throw new Exception("Product doesnot exists");
+            }
+            productInList.Name = product.Name;
+            productInList.Price = product.Price;
+            productInList.Category = product.Category;
+
+
+            return Ok(productInList);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteProductById")]
+        public IHttpActionResult DeleteProductById(int id)
+        {
+            var product = ProductsModel.GetProducts().Products.FirstOrDefault((p) => p.Id == id);
+            if (product == null)
+            {
+                throw new Exception("Product doesnot exists");
+            }
+            ProductsModel.GetProducts().Products.Remove(product);
+            return Ok(product);
+        }
+
+
 
     }
 }

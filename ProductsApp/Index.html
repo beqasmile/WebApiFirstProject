@@ -18,12 +18,21 @@
         <p id="product" />
     </div>
 
+    <div>
+        <h2>New Product</h2>
+        <input type="number" id="Id" />
+        <input type="text" id="Name" />
+        <input type="text" id="Category"/>
+        <input type="text" id="Price"/>
+        <input type="button" value="AddUser" onclick="addUser();" />
+    </div>
+
 
     <script>
-        var uri = 'api/product/GetAllProducts';
+        var uri = 'api/Product';
         $(document).ready(function ()
         {
-            $.getJSON(uri)
+            $.getJSON(uri + "/" + "GetAllProducts")
                 .done(function (data) {
                     $.each(data, function (key, item) {
                         // Add a list item for the product.
@@ -49,6 +58,26 @@
                 .fail(function (jqXHR, textStatus, err) {
                     $('#product').text('Error: ' + err);
                 });
+        }
+
+        function addUser() {
+            var x = {};
+           
+
+             x.Id = $('#Id').val();
+             x.Name = $('#Name').val();
+             x.Category = $('#Category').val();
+             x.Price = $('#Price').val();
+
+            $.post(uri + "/" + "AddProduct", function (data) { })
+                .done(function () {
+                    alert("second success");
+                })
+                .fail(function (error) {
+                    console.log(error);
+                });
+            
+            
         }
 
 
