@@ -19,5 +19,23 @@ namespace ProductsApp.Controllers
 
             return httpResponseMessage;
         }
+
+        [HttpPost]
+        [ActionName("AddCustomer")]
+        public IHttpActionResult AddCustomer(Customer customer)
+        {
+            if (customer != null)
+            {
+                var existCustomer = CustomerModel.GetCustomers().Customers.FirstOrDefault(p => p.Id == customer.Id);
+                if (existCustomer != null)
+                {
+                    throw new Exception("Customer already exists");
+                }
+                CustomerModel.GetCustomers().Customers.Add(customer);
+                return Ok(customer);
+            }
+            return NotFound();
+
+        }
     }
 }
